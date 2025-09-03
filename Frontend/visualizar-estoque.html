@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Estoque - Visualizar - Avanade E-commerce</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <nav class="topbar">
+            <div class="topbar-content">
+                <span>Painel Administrativo</span>
+                <button onclick="sair()">SAIR</button>
+            </div>
+        </nav>
+
+        <header>
+            <div>
+                <img src="/img/banner1.jpg" alt="Banner">
+            </div>
+        </header>
+
+        <main>
+            <div class="login-box">
+                <h2>Estoque Atual</h2>
+                <table id="tabela-estoque" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Descrição</th>
+                            <th>Quantidade</th>
+                            <th>Preço (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <p id="mensagem" style="color: red;"></p>
+            </div>
+        </main>
+
+
+
+
+        <footer>
+            <div><img src="/img/logo_si.png" alt="Logotipo SI" width="40px" height="35px"></div><br>
+            <div><small>&copy; 2025 SICOESQUE . All rights reserved </small>
+                <div><small>&copy; Desenvolvido por <a href="https://wa.me/28999452754">Sol
+                            Morcillo</a></small></div>
+        </footer>
+
+        <script>
+            const token = localStorage.getItem('token');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            };
+
+            async function carregarEstoque() {
+                const res = await fetch('https://localhost:5179/api/produtos', { headers });
+                if (!res.ok) {
+                    document.getElementById('mensagem').textContent = 'Erro ao carregar estoque.';
+                    return;
+                }
+
+                const produtos = await res.json();
+                const tbody = document.querySelector('#tabela-estoque tbody');
+                tbody.innerHTML = '';
+
+                produtos.forEach(produto => {
+                    const linha = document.createElement('tr');
+                    linha.innerHTML = `
+        <td>${produto.nome}</td>
+        <td>${produto.descricao}</td>
+        <td>${produto.quantidade}</td>
+        <td>R$ ${produto.preco.toFixed(2)}</td>
+      `;
+                    tbody.appendChild(linha);
+                });
+            }
+
+            carregarEstoque();
+        </script>
+
+
+        <script>/*Sair*/
+            function sair() {
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+        </script>
+
+
+    </body>
+
+</html>

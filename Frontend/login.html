@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Login Admin - Avanade E-commerce</title>
+         <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <header>
+            <div>
+                <img src="/img/banner1.jpg" alt="Banner">
+            </div>
+        </header>
+        <main>
+        <div class="login-box">
+            <h2>Login Admin</h2>
+            <input type="email" id="email" placeholder="E-mail">
+            <input type="password" id="senha" placeholder="Senha">
+            <button onclick="fazerLogin()">Entrar</button>
+            <p id="mensagem" style="color: red;"></p>
+        </div></main>
+
+        <footer>
+            <div><img src="/img/logo_si.png" alt="Logotipo SI" width="40px" height="35px"></div><br>
+            <div><small>&copy; 2025 SICOESQUE . All rights reserved </small>
+                <div><small>&copy; Desenvolvido por <a href="https://wa.me/28999452754">Sol
+                    Morcillo</a></small></div>
+        </footer>
+
+        <script>
+            async function fazerLogin() {
+                const email = document.getElementById('email').value;
+                const senha = document.getElementById('senha').value;
+
+                const response = await fetch('https://localhost:5179/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.token);
+                    window.location.href = 'painel-admin.html'; // próxima página
+                } else {
+                    document.getElementById('mensagem').textContent = 'Login inválido';
+                }
+            }
+        </script>
+    </body>
+
+</html>

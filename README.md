@@ -6,6 +6,7 @@ Aplicação com arquitetura de microserviços para gerenciamento de estoque de p
 
 Tecnologias: .NET Core, C#, Entity Framework, RESTful API, RabbitMQ (para comunicação entre microserviços), JWT (para autenticação) e banco de dados relacional.
 
+<img src="img/mapa1.jpg">
 
 Arquitetura Proposta 
 Microserviço 1 (Gestão de Estoque): 
@@ -87,5 +88,159 @@ Testes Unitários: Criar testes unitários para as funcionalidades principais, c
 Monitoramento e Logs: Implementar monitoramento básico de logs para rastrear falhas e transações no sistema. 
 
 Escalabilidade: O sistema deve ser capaz de escalar facilmente, caso seja necessário adicionar mais microserviços (ex: microserviço de pagamento ou de envio). 
+
+---------------------------------------------
+
+
+
+---------------------------------------------
+
+Criação do projeto
+
+Observação:
+Este projeto utiliza SQLite como banco de dados local para facilitar testes e execução em qualquer ambiente. Caso necessário, pode ser facilmente adaptado para SQL Server Express.
+
+
+1- No visual studio code:
+   - No terminal: mkdir EcommerceMicroservices
+                  cd EcommerceMicroservices
+
+2- No terminal, criar microserviços e o gateway:
+   - dotnet new webapi -n EstoqueService
+   - dotnet new webapi -n VendasService
+   - dotnet new webapi -n ApiGateway
+
+3- Criar solution e depois no terminal adicionar cada projeto a solution:
+   - dotnet sln add EstoqueService/EstoqueService.csproj
+   - dotnet sln add VendasService/VendasService.csproj
+   - dotnet sln add ApiGateway/ApiGateway.csproj
+
+4- Criar endpoints para cadastrar, consultar, atualizar e deletar produtos via API RESTful:
+
+5- Criar o banco de dados com EF Core.
+   No terminal, execute os comandos para criar a migração e aplicar ao banco:
+
+   - bash
+   - dotnet ef migrations add InitialCreate
+   - dotnet ef database update
+
+Resultado Esperado:
+Você terá uma API funcional com os seguintes endpoints:
+
+POST /api/produtos → Criar produto
+
+GET /api/produtos → Listar todos
+
+GET /api/produtos/{id} → Consultar por ID
+
+PUT /api/produtos/{id} → Atualizar
+
+DELETE /api/produtos/{id} → Remover
+
+
+6- No terminal, na pasta EstoqueService, rode dotnet run e veja o endereço para visualização do projeto
+   Exemplos:
+   - Endereço exato do terminal. Exemplo:  http://localhost:5176
+   - Endereço fornecido no erminal + swagger.Exemplo:  http://localhost:5176/swagger
+
+7- Ou verifique o endereço em crie launchSettings.json (com porta HTTPS), ou se não tiver, crie com o Conteúdo abaixo, dentro da pasta EstoqueService/Properties/launchSettings.json:
+{
+  "profiles": {
+    "EstoqueService": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+
+8- Rode no terminal dotnet run, veja o endereço e acrescente /swagger
+
+<img src="img/img1.jpg" width="600px" height="300px" >
+
+9- no navegador, clique em POST /api/Produtos / Try it out
+   - Cole este exemplo:
+   {
+   "nome": "Camiseta Bootcamp Avanade",
+   "descricao": "Tam M",
+   "preco": 49.90,
+   "quantidadeEstoque": 100
+   }
+
+   - Clique em executar
+
+   <img src="img/img2.jpg">
+
+   - Teste o GET /api/Produtos para listar todos os produtos
+   - Teste o GET /api/Produtos/{id} para buscar um específico
+   - Teste o PUT e o DELETE para atualizar e remover
+
+   ------------------------------------------
+
+   ## Testes de automação
+
+1-Na pasta raiz do projeto, no terminal da ide, rodar: cd EstoqueService.Tests
+
+2- No terminal, adicionar a referência ao projeto principal
+
+dotnet add reference ../EstoqueService.csproj
+
+3- Instalar pacotes para testes de integração
+   No terminal, dentro da pasta EstoqueService.Tests, rode os seguintes comandos:
+
+dotnet add package Microsoft.AspNetCore.Mvc.Testing
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+
+=> Esses pacotes vão permitir:
+
+   - Simular chamadas reais à API sem subir o servidor
+
+   - Usar um banco de dados em memória para os testes (sem afetar o estoque.db real)
+
+4- Rode 
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+
+5- Criar teste para POST /api/Produtos
+
+Passo 1: Crie o arquivo de teste
+   
+- Dentro da pasta EstoqueService.Tests, crie um arquivo chamado ProdutosControllerTests.cs.
+
+6- Instalar o pacote Newtonsoft.Json
+No terminal, dentro da pasta EstoqueService.Tests, rode:
+
+dotnet add package Newtonsoft.Json
+
+- Corrigir os using no arquivo ProdutosControllerTests.cs
+Abra o arquivo e garanta que os using estejam assim:
+
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using EstoqueService; // Isso importa o Program.cs
+
+- Abra o EstoqueService/ Program.cs e adicionar no final dele:
+
+public partial class Program { }
+
+7- Passo 3: Rode os testes
+No terminal, ainda dentro da pasta EstoqueService.Tests, execute:
+
+dotnet test
+
+
+
+
+   
+
+
+ 
+
 
 <img src="https://solmorcillo.com.br/imgs_public/logo_SM.jpg" width="100px" weight="120px">

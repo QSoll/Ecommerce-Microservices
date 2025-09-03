@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "lytbl2dW9Og=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sol2022\\_Sol2025\\avanade\\Ecommerce-Microservices\\ApiGateway\\ApiGateway.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Windows\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\Windows\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

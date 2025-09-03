@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-decoration: none;
+}
+
+a {
+    color: rgb(55, 188, 146);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(241, 244, 243);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.topbar {
+    width: 100%;
+    background-color: #090909;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.topbar-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.topbar-content span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.topbar-content button {
+    width: 50px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: none;
+    padding: 10px 3px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.topbar-content button:hover {
+    background-color: #21cf8f;
+    font-weight: bold;
+    color: black;
+}
+
+header {
+    width: 100%;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+header img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
+    padding: 40px 0px;
+}
+
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    /* Limita a largura para centralização */
+    text-align: center;
+    line-height: 45px;
+}
+
+
+input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+}
+
+button {
+    padding: 20px 10px;
+    width: 150px;
+    color: black;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: #15d58f;
+    cursor: pointer;
+    justify-content: center;
+}
+
+button:hover {
+    background: #005a9e;
+    font-weight: bold;
+    color: white;
+    font-weight: bold;
+}
+
+footer {
+    width: 100%;
+    background-color: #038455;
+    color: rgb(55, 188, 146);
+    text-align: center;
+    padding: 50px 0px 10px 0px;
+
+}
+
+footer img {
+    vertical-align: middle;
+    margin-right: 10px;
+}

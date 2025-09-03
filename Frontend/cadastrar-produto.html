@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastrar produto - Avanade E-commerce</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <nav class="topbar">
+            <div class="topbar-content">
+                <span>Painel Administrativo</span>
+                <button onclick="sair()">SAIR</button>
+            </div>
+        </nav>
+
+        <header>
+            <div>
+                <img src="/img/banner1.jpg" alt="Banner">
+            </div>
+        </header>
+
+        <main>
+            <div class="login-box">
+                <h2>Cadastrar Produto</h2>
+                <input type="text" id="nome" placeholder="Nome do produto">
+                <input type="text" id="descricao" placeholder="Descrição">
+                <input type="number" id="quantidade" placeholder="Quantidade">
+                <input type="number" id="preco" placeholder="Preço (R$)">
+                <button onclick="cadastrarProduto()">Cadastrar</button>
+                <p id="mensagem" style="color: green;"></p>
+            </div>
+        </main>
+
+
+        <footer>
+            <div><img src="/img/logo_si.png" alt="Logotipo SI" width="40px" height="35px"></div><br>
+            <div><small>&copy; 2025 SICOESQUE . All rights reserved </small>
+                <div><small>&copy; Desenvolvido por <a href="https://wa.me/28999452754">Sol
+                            Morcillo</a></small></div>
+        </footer>
+
+        <script>
+            const token = localStorage.getItem('token');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            };
+
+            async function verEstoque() {
+                const res = await fetch('https://localhost:5179/api/produtos', { headers });
+                const produtos = await res.json();
+                document.getElementById('resultado').innerHTML = `<pre>${JSON.stringify(produtos, null, 2)}</pre>`;
+            }
+
+            async function verPedidos() {
+                const res = await fetch('https://localhost:5176/api/pedidos', { headers });
+                const pedidos = await res.json();
+                document.getElementById('resultado').innerHTML = `<pre>${JSON.stringify(pedidos, null, 2)}</pre>`;
+            }
+
+            function cadastrarProduto() {
+                window.location.href = 'cadastrar-produto.html';
+            }
+
+            function criarPedido() {
+                window.location.href = 'criar-pedido.html';
+            }
+        </script>
+
+        <script>
+            function sair() {
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+        </script>
+
+
+    </body>
+
+</html>
